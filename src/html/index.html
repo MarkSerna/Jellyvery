@@ -4,9 +4,22 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A==" crossorigin=""/> 
+  <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js" integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA==" crossorigin=""></script>
+  
+  <!-- FILEPOND -->
+  <link href="https://unpkg.com/filepond/dist/filepond.css" rel="stylesheet">
+  <script src="https://unpkg.com/filepond/dist/filepond.js"></script> 
+
+
   <title>Jellyvery</title>
   <link rel="shortcut icon" type="image/png" href="../assets/images/logos/medusa.png" />
   <link rel="stylesheet" href="../assets/css/styles.min.css" />
+  <style type="text/css">
+    #map {
+        height: 500px;
+    }
+</style>
 </head>
 
 <body>
@@ -40,17 +53,24 @@
                 <span class="hide-menu">Menu principal</span>
               </a>
             </li>
+            
             <li class="nav-small-cap">
               <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
-              <span class="hide-menu">UI COMPONENTS</span>
+              <span class="hide-menu">Documentos</span>
             </li>
             <li class="sidebar-item">
-              <a class="sidebar-link" href="./ui-buttons.html" aria-expanded="false">
+              <a class="sidebar-link" href="#" aria-expanded="false">
                 <span>
-                  <i class="ti ti-article"></i>
+                  <i class="ti ti-upload"></i>
                 </span>
-                <span class="hide-menu">Buttons</span>
+                <span class="hide-menu">Upload File</span>
               </a>
+              <input type="file"
+                class="filepond"
+                name="filepond"
+                multiple
+                data-max-file-size="3MB"
+                data-max-files="3">
             </li>
             <li class="sidebar-item">
               <a class="sidebar-link" href="./ui-alerts.html" aria-expanded="false">
@@ -60,6 +80,7 @@
                 <span class="hide-menu">Alerts</span>
               </a>
             </li>
+            <!-- 
             <li class="sidebar-item">
               <a class="sidebar-link" href="./ui-card.html" aria-expanded="false">
                 <span>
@@ -125,7 +146,7 @@
               </a>
             </li>
           </ul>
-          
+          -->
         </nav>
         <!-- End Sidebar navigation -->
       </div>
@@ -186,6 +207,8 @@
         <div class="row">
           <div class="col-lg-8 d-flex align-items-strech">
             <div class="card w-100">
+              <div id="map"></div>
+              <!-- 
               <div class="card-body">
                 <div class="d-sm-flex d-block align-items-center justify-content-between mb-9">
                   <div class="mb-3 mb-sm-0">
@@ -194,6 +217,7 @@
                 </div>
                 <div id="chart"></div>
               </div>
+              -->
             </div>
           </div>
           <div class="col-lg-4">
@@ -527,6 +551,7 @@
       </div>
     </div>
   </div>
+
   <script src="../assets/libs/jquery/dist/jquery.min.js"></script>
   <script src="../assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
   <script src="../assets/js/sidebarmenu.js"></script>
@@ -534,6 +559,20 @@
   <script src="../assets/libs/apexcharts/dist/apexcharts.min.js"></script>
   <script src="../assets/libs/simplebar/dist/simplebar.js"></script>
   <script src="../assets/js/dashboard.js"></script>
+
+  <script type="text/javascript">
+    var map = L.map('map').setView([4.806157206689339, -75.75583403900613], 15);
+
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+    }).addTo(map);
+
+    var popup = L.popup()
+        .setLatLng([43.26271, -2.92528])
+        .setContent('<a href="https://www.youtube.com/watch?v=YcAW-VbTYnY" target="_blank">La capital del mundo</a>');
+
+    var marker = L.marker([43.26271, -2.92528]).bindPopup(popup).openPopup().addTo(map);
+</script>
 </body>
 
 </html>

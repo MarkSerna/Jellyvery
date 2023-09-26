@@ -46,30 +46,19 @@ class Node {
   }
 }
 class Arist {
-  constructor(point1, point2, weight) {
-    this.point1 = point1;
-    this.point2 = point2;
+  constructor(point, weight) {
+    this.point1 = point;
     this.weight = weight;
   }
 
   // Getter para el atributo point1
-  getPoint1() {
-    return this.point1;
+  getPoint() {
+    return this.point;
   }
 
   // Setter para el atributo point1
-  setPoint1(newPoint1) {
-    this.point1 = newPoint1;
-  }
-
-  // Getter para el atributo point2
-  getPoint2() {
-    return this.point2;
-  }
-
-  // Setter para el atributo point2
-  setPoint2(newPoint2) {
-    this.point2 = newPoint2;
+  setPoint(newPoint1) {
+    this.point1 = newPoint;
   }
 
   // Getter para el atributo weight
@@ -83,70 +72,28 @@ class Arist {
   }
 }
 
-function dijkstraShortestPath(initialNode) {
-    const distances = {};
-    const previous = {};
-    const unvisitedNodes = new Set();
-  
-    // Inicializa las distancias y los nodos previos
-    for (const node of Object.keys(nodes)) {
-      distances[node] = Infinity;
-      previous[node] = null;
-      unvisitedNodes.add(node);
-    }
-  
-    distances[initialNode] = 0;
-  
-    while (unvisitedNodes.size > 0) {
-      let currentNode = null;
-      for (const node of unvisitedNodes) {
-        if (!currentNode || distances[node] < distances[currentNode]) {
-          currentNode = node;
-        }
-      }
-  
-      unvisitedNodes.delete(currentNode);
-  
-      for (const route of nodes[currentNode].routes) {
-        const neighbor = route.point2;
-        const weight = route.weight;
-        const tentativeDistance = distances[currentNode] + weight;
-        if (tentativeDistance < distances[neighbor]) {
-          distances[neighbor] = tentativeDistance;
-          previous[neighbor] = currentNode;
-        }
-      }
-    }
-  
-    function buildPath(targetNode) {
-      const path = [];
-      let currentNode = targetNode;
-      while (currentNode !== null) {
-        path.unshift(currentNode);
-        currentNode = previous[currentNode];
-      }
-      return path;
-    }
-  
-    return { distances, buildPath };
+/**
+ * Busca y devuelve el objeto Arist que tenga el atributo weight
+ * correspondiente al número más pequeño entre las aristas que
+ * conectan el nodo inicial con el nodo final.
+ *
+ * @param {Node} NodeInitial - Nodo inicial desde el que se inicia la búsqueda.
+ * @param {Node} NodeFinal - Nodo final al que se desea llegar.
+ * @returns {Arist} El objeto Arist con el peso más pequeño
+ * encontrado en las rutas entre los nodos. Si no se encuentra ninguna arista,
+ * se devuelve null.
+ */
+const buscarDistanciaMinima = (NodeInitial, NodeFinal) => {
+  let routes = NodeInitial.getRoutes();
+  let matchingRoutes = routes.filter(
+    (arist) => arist.getPoint() === NodeFinal.getName()
+  );
+  if (matchingRoutes.length === 0) {
+    return null; // No se encontraron aristas que cumplan con el criterio.
   }
-  
-  // Ejemplo de uso
-  const nodeA = new Node("A", 0, 0);
-  const nodeB = new Node("B", 1, 1);
-  const nodeC = new Node("C", 2, 2);
-  
-  const aristaAB = new Arist("A", "B", 5);
-  const aristaAC = new Arist("A", "C", 10);
-  const aristaBC = new Arist("B", "C", 2);
-  
-  nodeA.addRoute(aristaAB);
-  nodeA.addRoute(aristaAC);
-  nodeB.addRoute(aristaBC);
-  
-  const nodes = {
-    A: nodeA,
-    B: nodeB,
-    C: nodeC,
-  };
-  
+  return matchingRoutes.reduce(
+    (minArist, arist) =>
+      arist.getWeight() < minArist.getWeight() ? arist : minArist,
+    matchingRoutes[0]
+  );
+};
