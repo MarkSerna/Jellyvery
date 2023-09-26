@@ -6,15 +6,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A==" crossorigin=""/> 
   <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js" integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA==" crossorigin=""></script>
-  
-  <!-- FILEPOND -->
-  <link href="https://unpkg.com/filepond/dist/filepond.css" rel="stylesheet">
-  <script src="https://unpkg.com/filepond/dist/filepond.js"></script> 
-
-
   <title>Jellyvery</title>
   <link rel="shortcut icon" type="image/png" href="../assets/images/logos/medusa.png" />
   <link rel="stylesheet" href="../assets/css/styles.min.css" />
+  <link rel="stylesheet" href="../assets/css/buttonstyle.css">
   <style type="text/css">
     #map {
         height: 500px;
@@ -59,18 +54,13 @@
               <span class="hide-menu">Documentos</span>
             </li>
             <li class="sidebar-item">
-              <a class="sidebar-link" href="#" aria-expanded="false">
-                <span>
-                  <i class="ti ti-upload"></i>
-                </span>
-                <span class="hide-menu">Upload File</span>
-              </a>
-              <input type="file"
-                class="filepond"
-                name="filepond"
-                multiple
-                data-max-file-size="3MB"
-                data-max-files="3">
+              <div class="file-upload">
+                <div class="file-select">
+                    <div class="file-select-button" id="fileName">Elige el archivo</div>
+                    <div class="file-select-name" id="noFile">No se ha seleccionado...</div> 
+                    <input type="file" name="chooseFile" id="chooseFile">
+                </div>
+            </div>
             </li>
             <li class="sidebar-item">
               <a class="sidebar-link" href="./ui-alerts.html" aria-expanded="false">
@@ -551,7 +541,6 @@
       </div>
     </div>
   </div>
-
   <script src="../assets/libs/jquery/dist/jquery.min.js"></script>
   <script src="../assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
   <script src="../assets/js/sidebarmenu.js"></script>
