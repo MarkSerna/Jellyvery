@@ -8,7 +8,7 @@
 .file-upload 
 .file-select{
     display:block;
-    border: 2px solid #dce4ec;
+    border: 2px solid #49BEFF;
     color: #34495e;
     cursor:pointer;
     height:40px;
@@ -17,11 +17,12 @@
     background:#FFFFFF;
     overflow:hidden;
     position:relative;
+    border-radius: 10px;
 }
 .file-upload 
 .file-select 
 .file-select-button{
-    background:#dce4ec;
+    background:#49BEFF;
     padding:0 10px;
     display:inline-block;
     height:40px;
@@ -43,7 +44,7 @@
 .file-upload 
 .file-select:hover 
 .file-select-button{
-    background:#34495e;
+    background:#539BFF;
     color:#FFFFFF;
     transition:all .2s ease-in-out;
     -moz-transition:all .2s ease-in-out;
@@ -87,7 +88,7 @@
 .file-select.file-select-disabled:hover{
     cursor:default;
     display:block;
-    border: 2px solid #dce4ec;
+    border: 2px solid #49BEFF;
     color: #34495e;
     cursor:pointer;
     height:40px;
@@ -101,7 +102,7 @@
 .file-upload 
 .file-select.file-select-disabled:hover 
 .file-select-button{
-    background:#dce4ec;
+    background:#49BEFF;
     color:#666666;
     padding:0 10px;
     display:inline-block;

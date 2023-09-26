@@ -548,20 +548,10 @@
   <script src="../assets/libs/apexcharts/dist/apexcharts.min.js"></script>
   <script src="../assets/libs/simplebar/dist/simplebar.js"></script>
   <script src="../assets/js/dashboard.js"></script>
+  <script src="../code/eventos.js"></script>
+  <script src="../assets/js/maps.js"></script>
+  
 
-  <script type="text/javascript">
-    var map = L.map('map').setView([4.806157206689339, -75.75583403900613], 15);
-
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-    }).addTo(map);
-
-    var popup = L.popup()
-        .setLatLng([43.26271, -2.92528])
-        .setContent('<a href="https://www.youtube.com/watch?v=YcAW-VbTYnY" target="_blank">La capital del mundo</a>');
-
-    var marker = L.marker([43.26271, -2.92528]).bindPopup(popup).openPopup().addTo(map);
-</script>
 </body>
 
 </html>
