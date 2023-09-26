@@ -15,4 +15,4 @@ Programming languages ​​(PHP 7 or higher, Javascript).
 ## Installation 🔧
 - Clone or copy the repository to the corresponding folder from the following link https://github.com/MarkSerna/jellyvery.git
 - Run the corresponding programs.
-- You must keep the services on to be able to run the corresponding files
+- You must keep the services on to be able to run the corresponding files.
