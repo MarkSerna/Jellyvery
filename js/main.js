@@ -1,5 +1,5 @@
 /*===== SHOW NAVBAR  =====*/
-const showNavbar = (toggleId, navId, bodyId, headerId) => {
+/* const showNavbar = (toggleId, navId, bodyId, headerId) => {
   const toggle = document.getElementById(toggleId),
     nav = document.getElementById(navId),
     bodypd = document.getElementById(bodyId),
@@ -20,7 +20,7 @@ const showNavbar = (toggleId, navId, bodyId, headerId) => {
   }
 };
 
-showNavbar("header-toggle", "nav-bar", "body-pd", "header");
+showNavbar("header-toggle", "nav-bar", "body-pd", "header"); */
 
 /*===== SUBMENU  =====*/
 
@@ -45,7 +45,7 @@ document.getElementById('map-container').addEventListener('click', function () {
   document.getElementById('map-overlay').style.pointerEvents = 'none';
 });
 
-document.getElementById('map-container').addEventListener('mouseleave', function() {
+document.getElementById('map-container').addEventListener('mouseleave', function () {
   document.getElementById('map-overlay').style.pointerEvents = 'auto';
 });
 
@@ -60,7 +60,7 @@ document.addEventListener("DOMContentLoaded", function () {
     // Verifica si el clic ocurrió en la imagen "map"
     if (event.target === map) {
       // Obtiene las coordenadas del clic relativas a la imagen "map"
-      const posX = event.offsetX+100; // Ajusta la posición para centrar la imagen
+      const posX = event.offsetX + 215; // Ajusta la posición para centrar la imagen
       const posY = event.offsetY; // Ajusta la posición para centrar la imagen
 
       // Crea un elemento de imagen
@@ -76,10 +76,30 @@ document.addEventListener("DOMContentLoaded", function () {
       // Agrega la imagen al div "map-container"
       mapContainer.appendChild(image);
 
-      //crea un Nodo
-      let nodo = new Node(posX , posY );
+      // Envia los datos del nodo al archivo PHP para inserción
+      const nodeData = "Nodo de prueba"; // Reemplaza con los datos adecuados
+      const nodePosX = posX;
+      const nodePosY = posY;
+
+      fetch('insert_node.php', {
+        method: 'POST',
+        body: JSON.stringify({ data: nodeData, posX: nodePosX, posY: nodePosY }),
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      })
+        .then(response => response.text())
+        .then(result => {
+          console.log(result);
+        })
+        .catch(error => {
+          console.error('Error al insertar el nodo en la base de datos: ' + error);
+        });
     }
   });
 });
 
+// Función para insertar un nodo en la base de datos
+function insertNodeInDatabase(node) {
+}
 
