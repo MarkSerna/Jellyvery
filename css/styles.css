@@ -1,0 +1,443 @@
+/*===== GOOGLE FONTS =====*/
+@import url("https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap");
+
+/*===== VARIABLES CSS =====*/
+:root{
+  --header-height: 3rem;
+  --nav-width: 68px;
+
+  /*===== Colors =====*/
+  --first-color: #4723D9;
+  --first-color-light: #AFA5D9;
+  --white-color: #F7F6FB;
+  
+  /*===== Font and typography =====*/
+  --body-font: 'Nunito', sans-serif;
+  --normal-font-size: 1rem;
+  
+  /*===== z index =====*/
+  --z-fixed: 100;
+
+  /*===== Modal ======*/
+  --background: linear-gradient(to right bottom, hsl(236, 50%, 50%), hsl(195, 50%, 50%));
+
+
+
+}
+
+/*===== BASE =====*/
+*,::before,::after{
+  box-sizing: border-box;
+}
+
+body{
+  position: relative;
+  margin: var(--header-height) 0 0 0;
+  padding: 0 1rem;
+  font-family: var(--body-font);
+  font-size: var(--normal-font-size);
+  transition: .5s;
+}
+
+a{
+  text-decoration: none;
+}
+
+/*===== HEADER =====*/
+.header{
+  width: 100%;
+  height: var(--header-height);
+  position: fixed;
+  top: 0;
+  left: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 1rem;
+  background-color: var(--white-color);
+  z-index: var(--z-fixed);
+  transition: .5s;
+}
+
+.header__toggle{
+  color: var(--first-color);
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+
+.header__img{
+  width: 35px;
+  height: 35px;
+  display: flex;
+  justify-content: center;
+  border-radius: 50%;
+  overflow: hidden;
+}
+
+.header__img img{
+  width: 40px;
+}
+
+/*===== NAV =====*/
+
+h3 {
+  position:relative;
+  align-items: center;
+  justify-content:center;
+  color: var(--white-color);
+  font-size: 16px;
+  margin-left: 60px;
+}
+.l-navbar{
+  position: fixed;
+  top: 0;
+  left: -30%;
+  width: var(--nav-width);
+  height: 100vh;
+  background-color: var(--first-color);
+  padding: .5rem 1rem 0 0;
+  transition: .5s;
+  z-index: var(--z-fixed);
+}
+
+.nav{
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  overflow: hidden;
+}
+
+.nav__logo, .nav__link{
+  display: grid;
+  grid-template-columns: max-content max-content;
+  align-items: center;
+  column-gap: 1rem;
+  padding: .5rem 0 .5rem 1.5rem;
+}
+
+.nav__logo{
+  margin-bottom: 2rem;
+}
+
+.nav__logo-icon{
+  font-size: 1.25rem;
+  color: var(--white-color);
+}
+
+.nav__logo-name{
+  color: var(--white-color);
+  font-weight: 700;
+}
+
+.nav__link{
+  position: relative;
+  color: var(--first-color-light);
+  margin-bottom: 1.5rem;
+  transition: .3s;
+}
+
+.nav__link:hover{
+  color: var(--white-color);
+}
+
+.nav__icon{
+  font-size: 1.25rem;
+}
+
+/*Show navbar movil*/
+.show{
+  left: 0;
+}
+
+/*Add padding body movil*/
+.body-pd{
+  padding-left: calc(var(--nav-width) + 1rem);
+}
+
+/*Active links*/
+.active{
+  color: var(--white-color);
+}
+
+.active::before{
+  content: '';
+  position: absolute;
+  left: 0;
+  width: 2px;
+  height: 32px;
+  background-color: var(--white-color);
+}
+
+/* ===== MEDIA QUERIES=====*/
+@media screen and (min-width: 768px){
+  body{
+    margin: calc(var(--header-height) + 1rem) 0 0 0;
+    padding-left: calc(var(--nav-width) + 2rem);
+  }
+
+  .header{
+    height: calc(var(--header-height) + 1rem);
+    padding: 0 2rem 0 calc(var(--nav-width) + 2rem);
+  }
+
+  .header__img{
+    width: 40px;
+    height: 40px;
+  }
+
+  .header__img img{
+    width: 45px;
+  }
+
+  .l-navbar{
+    left: 0;
+    padding: 1rem 1rem 0 0;
+  }
+  
+  /*Show navbar desktop*/
+  .show{
+    width: calc(var(--nav-width) + 156px);
+  }
+
+  /*Add padding body desktop*/
+  .body-pd{
+    padding-left: calc(var(--nav-width) + 188px);
+  }
+}
+
+/* ====== SUBMENU ======= */
+
+.sub-menu {
+  display: none;
+  list-style: none;
+  padding-left: 20px;
+}
+
+.sub-menu__item {
+  margin-bottom: 5px;
+}
+
+.sub-menu__link {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  color: #666;
+}
+
+.sub-menu__icon {
+  margin-right: 5px;
+}
+
+
+
+/* ====== BOTONES ======= */
+
+.rooms {
+  width: 90%;
+  margin: 40px auto;
+  text-align: center;
+}
+
+button {
+  margin: 20px;
+}
+
+.custom-btn {
+  width: 130px;
+  height: 130px;
+  color: #fff;
+  border-radius: 10px;
+  padding: 10px 25px;
+  font-family: 'Lato', sans-serif;
+  font-weight: 500;
+  background: transparent;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+  display: inline-block;
+  box-shadow:inset 2px 2px 2px 0px rgba(255,255,255,.5),
+      7px 7px 20px 0px rgba(0,0,0,.1),
+      4px 4px 5px 0px rgba(0,0,0,.1);
+  outline: none;
+}
+
+.btn {
+  background: rgb(6,14,131);
+  background: linear-gradient(0deg, rgba(6,14,131,1) 0%, rgba(12,25,180,1) 100%);
+  border: none;
+}
+
+.btn:hover {
+  background: rgb(0,3,255);
+  background: linear-gradient(0deg, rgba(0,3,255,1) 0%, rgba(2,126,251,1) 100%);
+}
+
+/* ====== RELOJ ====== */
+
+.afiche, 
+.calendar, 
+.right, 
+.left {
+  display: flex;
+  position: relative;
+  align-items: center;
+  justify-content: center;
+}
+
+.afiche {
+  min-width: 10vw;
+  min-height: 10vh;
+  top: 40px;
+  right: 40px;
+  position: absolute;
+}
+
+.calendar {
+  background: #9c87ee4e;
+  width: 15vw;
+  height: 10vw;
+  overflow: hidden;
+  border-radius: 10px;
+}
+
+.right {
+  width: 56%;
+  height: 100%;
+  flex-direction: column;
+}
+
+.left {
+  background: var(--first-color);
+  color: white;
+  width: 44%;
+  height: 100%;
+  flex-direction: column;
+}
+
+#fecha {
+  font-size: 3vw;
+  font-weight: 600;
+}
+
+#mes {
+  margin-bottom: 1.6vw;
+}
+
+#mes, #dia, #anio {
+  font-weight: 500;
+  font-size: 1.4vw;
+}
+
+
+/* Modals */
+
+/* Estilo para el contenedor del modal */
+.modal-container {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+  align-items: center;
+}
+
+/* Estilo para el contenido del modal */
+.modal {
+  background-color: rgb(6,14,131);
+  margin: 5% auto; /* 5% from the top and centered */
+  padding: 20px;
+  border: 1px solid #888;
+  border-radius: 20px;
+  width: 50%; /* Adjust this to change the width */
+  max-width: 600px; /* This will make sure the modal is not too big on large screens */
+  color: #fff;
+  align-items: center;
+}
+
+/* Estilo para el botón de cerrar */
+.close__btn {
+  padding: 1rem 1.6rem;
+  border: 1px solid hsla(0, 0%, 100%, .4);
+  border-radius: 100rem;
+  color: inherit;
+  background: transparent;
+  font-size: 16px;
+  font-family: inherit;
+  letter-spacing: .2rem;
+  transition: .2s;
+  cursor: pointer;
+}
+
+.close__btn:hover {
+  background-color: rgb(0,3,255);
+}
+
+/* Estilo para el botón de agregar producto */
+.modal__btn {
+  padding: 1rem 1.6rem;
+  border: 1px solid hsla(0, 0%, 100%, .4);
+  border-radius: 100rem;
+  color: inherit;
+  background: transparent;
+  font-size: 16px;
+  font-family: inherit;
+  letter-spacing: .2rem;
+  transition: .2s;
+  cursor: pointer;
+}
+
+.modal__btn:hover {
+  background-color: rgb(0,3,255);
+}
+
+/* Estilo para los detalles del modal */
+.modal__details {
+  margin-bottom: 10px;
+}
+
+.modal__title {
+  font-size: 24px;
+}
+
+.modal__subtitle {
+  font-size: 18px;
+}
+
+/* Estilo para la tabla de productos */
+.table-products {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: #fff;
+  color: rgb(6,14,131);
+}
+
+.table-products th, .table-products td {
+  border: 1px solid #ddd;
+  padding: 7px;
+}
+
+.table-products th {
+  padding-top: 2px;
+  padding-bottom: 2px;
+  text-align: left;
+  background-color: #fff;
+  color: rgb(6,14,131);
+}
+
+
+.hidden {
+  display: none;
+}
+
+
+
+.mapa {
+  position:relative;
+  align-items:left;
+}

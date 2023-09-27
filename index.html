@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- ===== BOX ICONS ===== -->
+    <link
+      href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css"
+      rel="stylesheet"
+    />
+
+    <!-- ===== MAPS ===== -->
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
+      integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
+      crossorigin=""
+    />
+    <script
+      src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
+      integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
+      crossorigin=""
+    ></script>
+
+    <title>Jellyvery</title>
+    <link
+      rel="shortcut icon"
+      type="image/png"
+      href="../assets/images/logos/medusa.png"
+    />
+
+    <!-- ===== CSS ===== -->
+    <link rel="stylesheet" href="css/styles.css" />
+
+    <title>Jellyvery</title>
+  </head>
+  <body id="body-pd">
+    <header class="header" id="header">
+      <div class="header__toggle">
+        <i class="bx bx-menu" id="header-toggle"></i>
+      </div>
+    </header>
+
+    <div class="l-navbar" id="nav-bar">
+      <nav class="nav">
+        <div>
+          <a href="#" class="nav__logo">
+            <i class="bx bx-layer nav__logo-icon"></i>
+            <span class="nav__logo-name">Jellyvery</span>
+          </a>
+
+          <div class="nav__list">
+            <a href="#" class="nav__link active">
+              <i class="bx bx-grid-alt nav__icon"></i>
+              <span class="nav__name">Inicio</span>
+            </a>
+            <h3>Documentación</h3>
+            <a href="#" class="nav__link">
+              <i class="bx bx-user nav__icon"></i>
+              <span class="nav__name">Huéspedes</span>
+            </a>
+            <ul class="sub-menu" id="subMenu">
+              <li class="sub-menu__item">
+                <a href="#" class="sub-menu__link">
+                  <i class="bx bx-user-circle sub-menu__icon"></i>
+                  <span class="sub-menu__name">Option 1</span>
+                </a>
+              </li>
+              <li class="sub-menu__item">
+                <a href="#" class="sub-menu__link">
+                  <i class="bx bx-user-plus sub-menu__icon"></i>
+                  <span class="sub-menu__name">Option 2</span>
+                </a>
+              </li>
+            </ul>
+            <a href="#" class="nav__link">
+              <i class="bx bx-message-square-detail nav__icon"></i>
+              <span class="nav__name">Messages</span>
+            </a>
+          </div>
+        </div>
+
+        <a href="#" class="nav__link">
+          <i class="bx bx-log-out nav__icon"></i>
+          <span class="nav__name">Log Out</span>
+        </a>
+      </nav>
+    </div>
+
+    <!-- <section class="mapas" id="">
+      <div class="mapa">
+        <div id="map"></div>
+      </div>
+    </section> -->
+    <section class="mapas">
+      <div id="map-container">
+        <img id="map" src="img/grafos/1.png"/>
+      </div>
+    </section>
+
+    <section class="Huespedes"></section>
+
+    <!--===== MAIN JS =====-->
+    <script src="js/main.js"></script>
+  </body>
+</html>
