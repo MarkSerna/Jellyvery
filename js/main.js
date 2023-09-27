@@ -27,28 +27,53 @@ showNavbar("header-toggle", "nav-bar", "body-pd", "header"); */
  * Alternar la visibilidad del submenú haciendo que aparezca o desaparezca.
  * Esta función se utiliza comúnmente en elementos de menú desplegable.
  */
-function toggleSubMenu() {
-  // Captura el elemento del submenú por su identificador "subMenu"
-  var subMenu = document.getElementById("subMenu");
 
-  // Comprueba si el estilo de visualización actual del submenú es "block" o "none"
-  // y cambia el estilo para alternar entre visible e invisible.
-  subMenu.style.display = subMenu.style.display === "block" ? "none" : "block";
+
+// /*===== LINK ACTIVE  =====*/
+// const linkColor = document.querySelectorAll(".nav__link");
+
+// function colorLink() {
+//   if (linkColor) {
+//     linkColor.forEach((l) => l.classList.remove("active"));
+//     this.classList.add("active");
+//   }
+// }
+// linkColor.forEach((l) => l.addEventListener("click", colorLink));
+
+//========== MENSAJE ARCHIVOS ==========//
+
+function onFileChange(event) {
+  var fileName = event.target.files[0].name;
+  var reader = new FileReader();
+  reader.onload = function(e) {
+      var obj = JSON.parse(e.target.result);
+      displayData(obj, fileName);
+  };
+  reader.readAsText(event.target.files[0]);
 }
 
+document.getElementById('file').addEventListener('change', onFileChange);
 
-/*===== LINK ACTIVE  =====*/
-const linkColor = document.querySelectorAll(".nav__link");
+//Mostrar los mensajes en el sidebar
+function displayData(data, fileName) {
+  // Selecciona el elemento div
+  var nameElement = document.getElementById('Nombre');
+  nameElement.style.color = 'white';
 
-function colorLink() {
-  if (linkColor) {
-    linkColor.forEach((l) => l.classList.remove("active"));
-    this.classList.add("active");
-  }
+  // Reemplaza el texto en el elemento div con el nombre del archivo
+  nameElement.textContent = fileName;
+
+  // Crea un nuevo elemento de lista para los datos del archivo
+  var fileDataItem = document.createElement('li');
+  fileDataItem.textContent = JSON.stringify(data);
+  fileDataItem.style.fontSize = '12px';
+  fileDataItem.style.color = 'white';
+
+  // Agrega el elemento de la lista debajo del elemento div
+  nameElement.parentNode.insertBefore(fileDataItem, nameElement.nextSibling);
 }
-linkColor.forEach((l) => l.addEventListener("click", colorLink));
 
-//========== MAPA ==========//
+//========== FIN MENSAJE ARCHIVOS ==========//
 
 
 /**
@@ -88,29 +113,30 @@ document.addEventListener("DOMContentLoaded", () => {
       createNode(posX, posY);
     }
     // Manejador de eventos para el input file
-  fileInput.addEventListener("change", (event) => {
-    const file = event.target.files[0]; // Obtiene el archivo seleccionado
+    fileInput.addEventListener("change", (event) => {
+      const file = event.target.files[0]; // Obtiene el archivo seleccionado
 
-    if (file) {
-      // Verifica que se haya seleccionado un archivo
-      const reader = new FileReader();
+      if (file) {
+        // Verifica que se haya seleccionado un archivo
+        const reader = new FileReader();
 
-      reader.onload = (e) => {
-        try {
-          const data = JSON.parse(e.target.result);
-          // Procesa los datos y crea los nodos según el archivo JSON
-          data.nodes.forEach((nodeData) => {
-            createNode(nodeData.posX, nodeData.posY);
-          });
-        } catch (error) {
-          console.error('Error al procesar el archivo JSON: ' + error);
-        }
-      };
+        reader.onload = (e) => {
+          try {
+            const data = JSON.parse(e.target.result);
+            // Procesa los datos y crea los nodos según el archivo JSON
+            data.nodes.forEach((nodeData) => {
+              // Llama a la función para crear un nodo con los datos y coordenadas proporcionados
+              createNode(nodeData.posX, nodeData.posY);
+            });
+          } catch (error) {
+            console.error('Error al procesar el archivo JSON: ' + error);
+          }
+        };
 
-      // Lee el contenido del archivo como texto
-      reader.readAsText(file);
-    }
-  });
+        // Lee el contenido del archivo como texto
+        reader.readAsText(file);
+      }
+    });
   });
 });
 /**
