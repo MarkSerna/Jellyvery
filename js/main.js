@@ -23,11 +23,19 @@
 showNavbar("header-toggle", "nav-bar", "body-pd", "header"); */
 
 /*===== SUBMENU  =====*/
-
+/**
+ * Alternar la visibilidad del submenú haciendo que aparezca o desaparezca.
+ * Esta función se utiliza comúnmente en elementos de menú desplegable.
+ */
 function toggleSubMenu() {
+  // Captura el elemento del submenú por su identificador "subMenu"
   var subMenu = document.getElementById("subMenu");
+
+  // Comprueba si el estilo de visualización actual del submenú es "block" o "none"
+  // y cambia el estilo para alternar entre visible e invisible.
   subMenu.style.display = subMenu.style.display === "block" ? "none" : "block";
 }
+
 
 /*===== LINK ACTIVE  =====*/
 const linkColor = document.querySelectorAll(".nav__link");
@@ -41,65 +49,127 @@ function colorLink() {
 linkColor.forEach((l) => l.addEventListener("click", colorLink));
 
 //========== MAPA ==========//
-document.getElementById('map-container').addEventListener('click', function () {
-  document.getElementById('map-overlay').style.pointerEvents = 'none';
-});
-
-document.getElementById('map-container').addEventListener('mouseleave', function () {
-  document.getElementById('map-overlay').style.pointerEvents = 'auto';
-});
 
 
-//========== PINTAR GRAFO ==========//
-document.addEventListener("DOMContentLoaded", function () {
-  const map = document.getElementById("map"); // Captura la imagen con el id "map"
+/**
+ * Espera a que el contenido del documento HTML esté completamente cargado y luego
+ * agrega un manejador de eventos para el clic en la imagen del mapa.
+ */
+document.addEventListener("DOMContentLoaded", () => {
+  // Captura el elemento de la imagen del mapa y el contenedor del mapa
+  const map = document.getElementById("map");
   const mapContainer = document.getElementById("map-container");
+  const fileInput = document.getElementById("file");
 
-  // Agrega un manejador de eventos para el clic en la imagen
-  map.addEventListener("click", function (event) {
-    // Verifica si el clic ocurrió en la imagen "map"
-    if (event.target === map) {
-      // Obtiene las coordenadas del clic relativas a la imagen "map"
-      const posX = event.offsetX + 215; // Ajusta la posición para centrar la imagen
-      const posY = event.offsetY; // Ajusta la posición para centrar la imagen
 
-      // Crea un elemento de imagen
-      const image = document.createElement("img");
-      image.src = "img/grafos/nodo-original.png"; // Ruta de la imagen
-      // Modifica las dimensiones de la imagen
-      image.width = 50; // Ancho deseado
-      image.height = 50; // Alto deseado
-      image.style.position = "absolute";
-      image.style.left = (posX - image.width / 2) + "px";
-      image.style.top = (posY - image.height / 2) + "px";
-
-      // Agrega la imagen al div "map-container"
-      mapContainer.appendChild(image);
-
-      // Envia los datos del nodo al archivo PHP para inserción
-      const nodeData = "Nodo de prueba"; // Reemplaza con los datos adecuados
-      const nodePosX = posX;
-      const nodePosY = posY;
-
-      fetch('insert_node.php', {
-        method: 'POST',
-        body: JSON.stringify({ data: nodeData, posX: nodePosX, posY: nodePosY }),
-        headers: {
-          'Content-Type': 'application/json'
-        }
-      })
-        .then(response => response.text())
-        .then(result => {
-          console.log(result);
+  /**
+   * Maneja el evento de clic en la imagen del mapa.
+   * @param {Event} event - El objeto de evento de clic.
+   */
+  map.addEventListener("click", ({ target, offsetX, offsetY }) => {
+    // Verifica si el clic ocurrió en la imagen del mapa
+    if (target === map) {
+      // Calcula las coordenadas del clic relativas a la imagen del mapa
+      const posX = offsetX + 230; // Ajusta la posición para centrar la imagen
+      const posY = offsetY; // Ajusta la posición para centrar la imagen
+      // Cargar los nodos desde un archivo JSON
+      fetch('nodes.json')
+        .then(response => response.json())
+        .then(data => {
+          // Procesar los datos y crear nodos
+          data.nodes.forEach(nodeData => {
+            createNode(nodeData.posX, nodeData.posY);
+          });
         })
         .catch(error => {
-          console.error('Error al insertar el nodo en la base de datos: ' + error);
+          console.error('Error al cargar los nodos desde el archivo JSON: ' + error);
         });
+      // Llama a la función para crear un nodo con los datos y coordenadas proporcionados
+      createNode(posX, posY);
+    }
+    // Manejador de eventos para el input file
+  fileInput.addEventListener("change", (event) => {
+    const file = event.target.files[0]; // Obtiene el archivo seleccionado
+
+    if (file) {
+      // Verifica que se haya seleccionado un archivo
+      const reader = new FileReader();
+
+      reader.onload = (e) => {
+        try {
+          const data = JSON.parse(e.target.result);
+          // Procesa los datos y crea los nodos según el archivo JSON
+          data.nodes.forEach((nodeData) => {
+            createNode(nodeData.posX, nodeData.posY);
+          });
+        } catch (error) {
+          console.error('Error al procesar el archivo JSON: ' + error);
+        }
+      };
+
+      // Lee el contenido del archivo como texto
+      reader.readAsText(file);
     }
   });
+  });
 });
+/**
+ * Crea un nodo de imagen y lo inserta en el mapa.
+ * @param {number} posX - La posición en el eje X.
+ * @param {number} posY - La posición en el eje Y.
+ */
+function createNode(posX, posY) {
+  // Crea un elemento de imagen
+  const image = document.createElement("img");
+  const imageSrc = "./img/grafos/nodo-original.png";
+  const imageWidth = 50; // Ancho deseado
+  const imageHeight = 50; // Alto deseado
 
-// Función para insertar un nodo en la base de datos
-function insertNodeInDatabase(node) {
+  // Establece las propiedades de la imagen
+  image.src = imageSrc;
+  image.width = imageWidth;
+  image.height = imageHeight;
+  image.style.position = "absolute";
+  image.style.left = `${posX - imageWidth / 2}px`; // Ajusta la posición en el eje X
+  image.style.top = `${posY - imageHeight / 2}px`; // Ajusta la posición en el eje Y
+
+  // Agrega la imagen al contenedor del mapa
+  const mapContainer = document.getElementById("map-container");
+  mapContainer.appendChild(image);
+
+  // Crea un objeto nodo con las coordenadas
+  const node = new Node(posX, posY);
+
+  // Envia los datos del nodo al archivo PHP para inserción en la base de datos
+  sendNodeToDatabase(node);
 }
+/**
+ * Envía las coordenadas del nodo al archivo PHP para inserción en la base de datos.
+ * @param {number} posX - La posición en el eje X.
+ * @param {number} posY - La posición en el eje Y.
+ */
+function sendNodeToDatabase(posX, posY) {
+  // Crea un objeto con las coordenadas del nodo
+  const nodeData = { posX, posY };
+
+  // Envia los datos del nodo al archivo PHP para inserción
+  fetch('../nodes/insert_node.php', {
+    method: 'POST',
+    body: JSON.stringify(nodeData), // Solo envía las coordenadas
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  })
+    .then(response => response.text())
+    .then(result => {
+      console.log(result);
+    })
+    .catch(error => {
+      console.error('Error al insertar el nodo en la base de datos: ' + error);
+    });
+}
+
+
+
+
 
