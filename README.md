@@ -36,4 +36,4 @@ Operating system: Windows 10 or higher
 Installed programs: Database manager (MySQL)
 Web Server (XAMPP v3.3.0 or later)
 Code editors (Visual Studio Code, Sublime, Atom, etc.).
-Programming languages ​​(PHP 7 or higher, Javascript).
+Programming languages ​​(PHP 7 or higher, Javascript)..
