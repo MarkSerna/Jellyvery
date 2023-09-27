@@ -1,19 +1,8 @@
 class Node {
-  constructor(data, posX, posY) {
-    this.data = data; // Datos almacenados en el nodo
+  constructor(posX, posY) {
     this.posX = posX; // Posición en el eje X
     this.posY = posY; // Posición en el eje Y
     this.neighbors = new Map(); // Mapa para almacenar nodos vecinos y pesos de las aristas
-  }
-
-  // Getter para obtener los datos del nodo
-  getData() {
-    return this.data;
-  }
-
-  // Setter para establecer los datos del nodo
-  setData(newData) {
-    this.data = newData;
   }
 
   // Getter para obtener la posición en el eje X

@@ -89,3 +89,40 @@ function buscarDistanciaMinima(grafo, nodoInicial) {
 
   return caminoOptimo;
 }
+
+function darRutaOptima(grafo, numNodos, nodoInicial) {
+  const visited = new Set();
+  const distances = new Map();
+  const previousNodes = new Map();
+  const queue = new PriorityQueue();
+
+  // Inicializar distancias a infinito excepto para el nodo inicial
+  grafo.nodes.forEach((node, data) => {
+    distances.set(data, Infinity);
+  });
+  distances.set(nodoInicial, 0);
+
+  // Agregar el nodo inicial a la cola de prioridad
+  queue.enqueue(nodoInicial, 0);
+
+  while (!queue.isEmpty()) {
+    const currentNodeData = queue.dequeue().data;
+    const currentNode = grafo.nodes.get(currentNodeData);
+
+    visited.add(currentNodeData);
+
+    currentNode.neighbors.forEach((weight, neighborNode) => {
+      if (!visited.has(neighborNode.data)) {
+        const tentativeDistance = distances.get(currentNodeData) + weight;
+        if (tentativeDistance < distances.get(neighborNode.data)) {
+          distances.set(neighborNode.data, tentativeDistance);
+          previousNodes.set(neighborNode.data, currentNodeData);
+          queue.enqueue(neighborNode.data, tentativeDistance);
+        }
+      }
+    });
+  }
+
+  return { distances, previousNodes };
+}
+

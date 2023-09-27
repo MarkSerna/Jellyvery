@@ -1,4 +1,3 @@
-//import { Node, Graph } from "instancias.js";
 /*===== SHOW NAVBAR  =====*/
 const showNavbar = (toggleId, navId, bodyId, headerId) => {
   const toggle = document.getElementById(toggleId),
@@ -62,7 +61,7 @@ var popup = L.popup().setLatLng([4.806157206689339, -75.75583403900613]);
   .openPopup()
   .addTo(map);*/
 
-//========== GRAFO ==========//
+//========== PINTAR GRAFO ==========//
 document.addEventListener("DOMContentLoaded", function () {
   const map = document.getElementById("map"); // Captura la imagen con el id "map"
   const mapContainer = document.getElementById("map-container");
@@ -72,18 +71,26 @@ document.addEventListener("DOMContentLoaded", function () {
     // Verifica si el clic ocurrió en la imagen "map"
     if (event.target === map) {
       // Obtiene las coordenadas del clic relativas a la imagen "map"
-      const posX = event.offsetX - 10; // Ajusta la posición para centrar la imagen
-      const posY = event.offsetY - 10; // Ajusta la posición para centrar la imagen
+      const posX = event.offsetX+100; // Ajusta la posición para centrar la imagen
+      const posY = event.offsetY; // Ajusta la posición para centrar la imagen
 
       // Crea un elemento de imagen
       const image = document.createElement("img");
-      image.src = "img/grafos/nodo-black.png"; // Ruta de la imagen
+      image.src = "img/grafos/nodo-original.png"; // Ruta de la imagen
+      // Modifica las dimensiones de la imagen
+      image.width = 50; // Ancho deseado
+      image.height = 50; // Alto deseado
       image.style.position = "absolute";
-      image.style.left = posX + "px";
-      image.style.top = posY + "px";
+      image.style.left = (posX - image.width / 2) + "px";
+      image.style.top = (posY - image.height / 2) + "px";
 
       // Agrega la imagen al div "map-container"
       mapContainer.appendChild(image);
+
+      //crea un Nodo
+      let nodo = new Node(posX , posY );
     }
   });
 });
+
+
