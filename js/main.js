@@ -41,25 +41,14 @@ function colorLink() {
 linkColor.forEach((l) => l.addEventListener("click", colorLink));
 
 //========== MAPA ==========//
-//Create map object
-var map = L.map("map", {
-  doubleClickZoom: false,
-  /*zoomControl: false,
-  scrollWheelZoom: false,
-  touchZoom: false,
-  dragging: false,*/
-}).setView([4.806157206689339, -75.75583403900613], 16.5);
+document.getElementById('map-container').addEventListener('click', function () {
+  document.getElementById('map-overlay').style.pointerEvents = 'none';
+});
 
-L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
-  //attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-}).addTo(map);
+document.getElementById('map-container').addEventListener('mouseleave', function() {
+  document.getElementById('map-overlay').style.pointerEvents = 'auto';
+});
 
-var popup = L.popup().setLatLng([4.806157206689339, -75.75583403900613]);
-
-/* var marker = L.marker([4.806157206689339, -75.75583403900613])
-  .bindPopup(popup)
-  .openPopup()
-  .addTo(map);*/
 
 //========== PINTAR GRAFO ==========//
 document.addEventListener("DOMContentLoaded", function () {
