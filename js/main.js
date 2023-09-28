@@ -39,53 +39,104 @@ showNavbar("header-toggle", "nav-bar", "body-pd", "header"); */
 //   }
 // }
 // linkColor.forEach((l) => l.addEventListener("click", colorLink));
+const { connection } = require('./connection.js'); // Cambia la ruta según la ubicación de tu archivo connection.js
 
 //========== MENSAJE ARCHIVOS ==========//
 
+function uploadDataToDatabase(data) {
+  // Inserta los nodos (ubicaciones)
+  data.ubicaciones.forEach(ubicacion => {
+    const { nombre, posX, posY } = ubicacion;
+    const insertNodoQuery = 'INSERT INTO nodos (nombre, posX, posY) VALUES (?, ?, ?)';
+
+    connection.query(insertNodoQuery, [nombre, posX, posY], (err, result) => {
+      if (err) {
+        console.error('Error al insertar nodo: ' + err);
+      } else {
+        console.log('Nodo insertado correctamente. ID: ' + result.insertId);
+      }
+    });
+  });
+
+  // Inserta las aristas (conexiones)
+  data.conexiones.forEach(conexion => {
+    const { ubicacion1, ubicacion2, peso } = conexion;
+    const insertAristaQuery = `
+      INSERT INTO aristas (nodo_inicio, nodo_fin, peso)
+      SELECT n1.id, n2.id, ? FROM nodos n1, nodos n2
+      WHERE n1.nombre = ? AND n2.nombre = ?
+    `;
+
+    connection.query(
+      insertAristaQuery,
+      [peso, ubicacion1, ubicacion2],
+      (err, result) => {
+        if (err) {
+          console.error('Error al insertar arista: ' + err);
+        } else {
+          console.log('Arista insertada correctamente. ID: ' + result.insertId);
+        }
+      }
+    );
+  });
+
+  // Cierra la conexión
+  connection.end(err => {
+    if (err) {
+      console.error('Error al cerrar la conexión: ' + err);
+    } else {
+      console.log('Proceso completado. Conexión cerrada.');
+    }
+  });
+}
 function onFileChange(event) {
   var fileName = event.target.files[0].name;
   var reader = new FileReader();
   reader.onload = function (e) {
     var obj = JSON.parse(e.target.result);
     displayData(obj, fileName);
+    // Llama a la función para cargar los datos en la base de datos
+    uploadDataToDatabase(obj);
   };
   reader.readAsText(event.target.files[0]);
 }
-
 document.getElementById('file').addEventListener('change', onFileChange);
 
 //Mostrar los mensajes en el sidebar
 function displayData(data, fileName) {
+  console.log("no");
+
   // Selecciona el elemento div
   var nameElement = document.getElementById('nombre');
   nameElement.style.color = 'white';
 
   // Reemplaza el texto en el elemento div con el nombre del archivo
-  nameElement.textContent = fileName;
+  nameElement.textContent = 'Archivo cargado: ' + fileName;
 
   // Verifica si data es un array
   if (!Array.isArray(data)) {
+    console.log('Data no es un array. Convirtiendo en un array...');
     // Si data es un objeto, conviértelo en un array de objetos
     data = Object.values(data);
-    console.log(data);
   }
-  // Crea un nuevo elemento de lista para los datos del archivo
-  var fileDataItem = document.createElement('li');
-  
+
+  // Selecciona el elemento en el que deseas mostrar los datos (por ejemplo, un div con el id 'dataContainer')
+  var dataContainer = document.getElementById('dataContainer');
+  dataContainer.innerHTML = ''; // Limpia el contenido anterior si lo hubiera
+
   // Itera sobre cada objeto en los datos del archivo
-  data.forEach(function(item) {
-      var li = document.createElement('li');
-      li.textContent = 'Nombre: ' + item.nombre + ', posX: ' + item.posX + ', posY: ' + item.posY;
-      li.style.fontSize = '12px';
-      li.style.color = 'white';
-      fileDataItem.appendChild(li);
-      li.textContent = item;
+  data.forEach(function (item) {
+    var li = document.createElement('li');
+    li.textContent = 'Nombre: ' + item.nombre + ', posX: ' + item.posX + ', posY: ' + item.posY;
+    li.style.fontSize = '12px';
+    li.style.color = 'white';
+    dataContainer.appendChild(li);
   });
 
-
   // Agrega el elemento de la lista debajo del elemento div
-  nameElement.parentNode.insertBefore(fileDataItem, nameElement.nextSibling);
+  // nameElement.parentNode.insertBefore(fileDataItem, nameElement.nextSibling);
 }
+
 
 //========== FIN MENSAJE ARCHIVOS ==========//
 
@@ -122,7 +173,7 @@ document.addEventListener("DOMContentLoaded", () => {
         })
         .catch(error => {
           console.error('Error al cargar los nodos desde el archivo JSON: ' + error);
-        });o
+        }); o
       // Llama a la función para crear un nodo con los datos y coordenadas proporcionados
       createNode(posX, posY);
     }
@@ -177,55 +228,7 @@ function createNode(posX, posY) {
   const mapContainer = document.getElementById("map-container");
   mapContainer.appendChild(image);
 }
-function uploadDataToDatabase(data) {
-  // Requiere tu archivo connection.php
-  const { connection } = require_once('../connection.php');
 
-  // Inserta los nodos (ubicaciones)
-  data.ubicaciones.forEach(ubicacion => {
-    const { nombre, posX, posY } = ubicacion;
-    const insertNodoQuery = 'INSERT INTO nodos (nombre, posX, posY) VALUES (?, ?, ?)';
-
-    connection.query(insertNodoQuery, [nombre, posX, posY], (err, result) => {
-      if (err) {
-        console.error('Error al insertar nodo: ' + err);
-      } else {
-        console.log('Nodo insertado correctamente. ID: ' + result.insertId);
-      }
-    });
-  });
-
-  // Inserta las aristas (conexiones)
-  data.conexiones.forEach(conexion => {
-    const { ubicacion1, ubicacion2, peso } = conexion;
-    const insertAristaQuery = `
-      INSERT INTO aristas (nodo_inicio, nodo_fin, peso)
-      SELECT n1.id, n2.id, ? FROM nodos n1, nodos n2
-      WHERE n1.nombre = ? AND n2.nombre = ?
-    `;
-
-    connection.query(
-      insertAristaQuery,
-      [peso, ubicacion1, ubicacion2],
-      (err, result) => {
-        if (err) {
-          console.error('Error al insertar arista: ' + err);
-        } else {
-          console.log('Arista insertada correctamente. ID: ' + result.insertId);
-        }
-      }
-    );
-  });
-
-  // Cierra la conexión
-  connection.end(err => {
-    if (err) {
-      console.error('Error al cerrar la conexión: ' + err);
-    } else {
-      console.log('Proceso completado. Conexión cerrada.');
-    }
-  });
-}
 
 
 
