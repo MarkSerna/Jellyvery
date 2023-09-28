@@ -57,7 +57,7 @@ document.getElementById('file').addEventListener('change', onFileChange);
 //Mostrar los mensajes en el sidebar
 function displayData(data, fileName) {
   // Selecciona el elemento div
-  var nameElement = document.getElementById('Nombre');
+  var nameElement = document.getElementById('nombre');
   nameElement.style.color = 'white';
 
   // Reemplaza el texto en el elemento div con el nombre del archivo

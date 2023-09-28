@@ -2,5 +2,22 @@
   "dependencies": {
     "fs": "^0.0.1-security",
     "mysql": "^2.18.1"
-  }
+  },
+  "name": "jellyvery",
+  "description": "The server is located locally, so you need to create a folder on your local server for running tests.",
+  "version": "1.0.0",
+  "main": "index.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "npmnpm install fs"
+  },
+  "repository": {
+    "type": "git",
+    "url": "npm install fs"
+  },
+  "author": "git log",
+  "license": "ISC"
 }

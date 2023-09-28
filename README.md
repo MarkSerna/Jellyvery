@@ -32,8 +32,8 @@ We welcome contributions to Jellyvery! If you want to collaborate in the develop
 
 
 ## Prerequisites 📋
-Operating system: Windows 10 or higher
-Installed programs: Database manager (MySQL)
-Web Server (XAMPP v3.3.0 or later)
-Code editors (Visual Studio Code, Sublime, Atom, etc.).
-Programming languages ​​(PHP 7 or higher, Javascript)..
+- Operating system: Windows 10 or higher
+- Installed programs: Database manager (MySQL)
+- Web Server (XAMPP v3.3.0 or later)
+- Code editors (Visual Studio Code, Sublime, Atom, etc.).
+- Programming languages ​​(PHP 7 or higher, Javascript)..

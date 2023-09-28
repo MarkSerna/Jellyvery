@@ -4,20 +4,16 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="shortcut icon" type="image/png" href="./img/logos/medusa.png" />
 
   <!-- ===== BOX ICONS ===== -->
   <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet" />
 
   <!-- ===== MAPS ===== -->
-  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
-    integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
-    crossorigin="" />
-  <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
-    integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
-    crossorigin=""></script>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A==" crossorigin="" />
+  <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js" integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA==" crossorigin=""></script>
 
   <title>Jellyvery</title>
-  <link rel="shortcut icon" type="image/png" href="../assets/images/logos/medusa.png" />
 
   <!-- ===== CSS ===== -->
   <link rel="stylesheet" href="css/styles.css" />
@@ -36,8 +32,8 @@
     <nav class="nav">
       <div>
         <a href="#" class="nav__logo">
-          <i class="bx bx-layer nav__logo-icon"></i>
-          <span class="nav__logo-name">Jellyvery</span>
+          <img src="./img/logos/medusa.png" alt="" width="40px">
+          <span class="nav__logo-name" width="40px">Jellyvery</span>
         </a>
 
         <div class="nav__list">
@@ -47,13 +43,13 @@
           </a>
           <h3>Documentación</h3>
           <a href="#" class="nav__link">
-            <input type="file" class="custom-file-upload" id="file" accept=".json">
+            <input type="file" class="custom-file-upload" id="file" accept=".json" >
             <label for="file">Seleccionar</label>
           </a>
           <div class="nav__list">
             <div class="nav__link">
               <i class="bx bx-message-square-detail nav__icon"></i>
-              <div class="nombre" id="Nombre">Nombre</div>
+              <div class="nombre" id="nombre">...</div>
             </div>
           </div>
         </div>
@@ -69,11 +65,12 @@
   <section class="mapas">
     <div id="map-container">
       <img id="map" src="img/backgrounds/mapa.png" />
+      <div class="resultados" id="resultados">
+        <h3>Resultados</h3>
+      </div>
     </div>
     <svg id="line-container"></svg>
   </section>
-  
-  <section class="Huespedes"></section>
 
   <!--===== MAIN JS =====-->
   <script src="js/main.js"></script>
