@@ -11,17 +11,13 @@ const PORT = process.env.PORT || 3000;
 // Middleware para analizar datos JSON en las solicitudes
 app.use(bodyParser.json());
 
-// Ruta de ejemplo para la API
-app.get('/api', (req, res) => {
-    res.json({ message: '¡API en funcionamiento!' });
-});
-
 // Inicia el servidor
 app.listen(PORT, () => {
     console.log(`Servidor en funcionamiento en el puerto ${PORT}`);
 });
 
-
+// Agrega esto antes de tus rutas
+app.use(express.static('public'));
 
 // Ruta para cargar datos en la base de datos
 app.post('/api/upload', (req, res) => {
@@ -80,15 +76,24 @@ app.post('/api/upload', (req, res) => {
                 }
             });
         });
+        if (errorOcurred) {
+            console.error('Error al procesar la solicitud: ' + error);
+            res.status(500).json({ error: 'Error interno del servidor' }); // Enviar una respuesta JSON de error
+            return;
+        }
+        // En caso de éxito
+        res.json({ message: 'Datos cargados correctamente' }); // Enviar una respuesta JSON exitosa
 
-        // ...
-
-
-
-        // Cierra la conexión a la base de datos
-        dbConnection.end();
     });
+
+
+
+    // Cierra la conexión a la base de datos
+    dbConnection.end();
 });
+
+
+
 
 
 

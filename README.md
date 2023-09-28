@@ -1,4 +1,5 @@
 # Jellyvery
+![jellyvery](img/logos/Jellyvery-whitelogo.jpg)
 
 ### Web application to find the most optimal route between a set of locations on a map.
 
@@ -36,4 +37,9 @@ We welcome contributions to Jellyvery! If you want to collaborate in the develop
 - Installed programs: Database manager (MySQL)
 - Web Server (XAMPP v3.3.0 or later)
 - Code editors (Visual Studio Code, Sublime, Atom, etc.).
-- Programming languages ​​(PHP 7 or higher, Javascript)..
+- Programming languages ​​(PHP 7 or higher, Javascript, Node.js)..
+
+
+## Autores
+- Jeimy Taitiana Pinto Tapia 💜
+- Marco Eduar Serna 

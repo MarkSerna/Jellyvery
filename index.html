@@ -10,8 +10,12 @@
   <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet" />
 
   <!-- ===== MAPS ===== -->
-  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A==" crossorigin="" />
-  <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js" integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA==" crossorigin=""></script>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
+    integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
+    crossorigin="" />
+  <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
+    integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
+    crossorigin=""></script>
 
   <title>Jellyvery</title>
 
@@ -65,10 +69,14 @@
             <span class="nav__name">Inicio</span>
           </a>
           <h3>Documentación</h3>
-          <a href="#" class="nav__link">
-            <input type="file" class="custom-file-upload" id="file" accept=".json" >
-            <label for="file">Seleccionar</label>
-          </a>
+          <form id="uploadForm">
+            <a href="#" class="nav__link">
+              <input type="file" class="custom-file-upload" id="file" accept=".json">
+              <label for="file">Seleccionar</label>
+            </a>
+            <button type="submit">Cargar Archivo</button>
+          </form>
+
           <div class="nav__list">
             <div class="nav__link">
               <i class="bx bx-message-square-detail nav__icon"></i>
@@ -78,7 +86,7 @@
         </div>
       </div>
 
-      <a href="#" class="nav__link">
+      <a href="./login.html" class="nav__link">
         <i class="bx bx-log-out nav__icon"></i>
         <span class="nav__name">Log Out</span>
       </a>
@@ -97,6 +105,7 @@
 
   <!--===== MAIN JS =====-->
   <script src="js/main.js"></script>
+  <script src="js/client.js"></script>
 </body>
 
 </html>
