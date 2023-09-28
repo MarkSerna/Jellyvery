@@ -9,33 +9,35 @@
 <body>
 <div class="container" id="container">
 	<div class="form-container sign-up-container">
-		<form action="#">
-			<h1>Crear cuenta</h1>
-			<div class="social-container">
+		<form action="./php/registro.php" method="post">
+			<img src="./img/logos/Jellyvery.png" alt="" width="250px">
+			<h3>Crear cuenta</h3>
+			<!-- <div class="social-container">
 				<a href="https://www.instagram.com/" class="social"><i class="fab fa-facebook-f"></i></a>
 				<a href="https://www.facebook.com/" class="social"><i class="fab fa-google-plus-g"></i></a>
 				<a href="#" class="social"><i class="fab fa-linkedin-in"></i></a>
-			</div>
-			<span>or use un correo para registrarse</span>
-			<input type="text" placeholder="Nombre" />
-			<input type="email" placeholder="Correo" />
-			<input type="password" placeholder="Contraseña" />
-			<button>Inscribirse</button>
+			</div> -->
+			<!-- <span>or use un correo para registrarse</span> -->
+			<input type="text" name="nombre" placeholder="Nombre" />
+			<input type="email" name="correo" placeholder="Correo" />
+			<input type="password" name="clave" placeholder="Contraseña" />
+			<button type="submit">Inscribirse</button>
 		</form>
 	</div>
 	<div class="form-container sign-in-container">
-		<form action="#">
-			<h1>Sign in</h1>
-			<div class="social-container">
-				<a href="#" class="social"><i class="fab fa-facebook-f"></i></a>
+		<form action="./php/login.php" method="post">
+			<img src="./img/logos/Jellyvery.png" alt="" width="250px">
+			<h3>Iniciar sesión</h3>
+			<!-- <div class="social-container">
+				<a href="" class="social"><i class="fab fa-facebook-f"></i></a>
 				<a href="#" class="social"><i class="fab fa-google-plus-g"></i></a>
 				<a href="#" class="social"><i class="fab fa-linkedin-in"></i></a>
-			</div>
-			<span>O usa tu cuenta</span>
-			<input type="email" placeholder="Correo" />
-			<input type="password" placeholder="Contraseña" />
+			</div> -->
+			<!-- <span>O usa tu cuenta</span> -->
+			<input type="email" name="correo" placeholder="Correo" />
+			<input type="password" name="clave" placeholder="Contraseña" />
 			<a href="#">¿Olvidaste tu contraseña?</a>
-			<button>Iniciar sesión</button>
+			<button type="submit">Iniciar sesión</button>
 		</form>
 	</div>
 	<div class="overlay-container">
