@@ -39,73 +39,44 @@ showNavbar("header-toggle", "nav-bar", "body-pd", "header"); */
 //   }
 // }
 // linkColor.forEach((l) => l.addEventListener("click", colorLink));
-const { connection } = require('./connection.js'); // Cambia la ruta según la ubicación de tu archivo connection.js
 
 //========== MENSAJE ARCHIVOS ==========//
 
-function uploadDataToDatabase(data) {
-  // Inserta los nodos (ubicaciones)
-  data.ubicaciones.forEach(ubicacion => {
-    const { nombre, posX, posY } = ubicacion;
-    const insertNodoQuery = 'INSERT INTO nodos (nombre, posX, posY) VALUES (?, ?, ?)';
-
-    connection.query(insertNodoQuery, [nombre, posX, posY], (err, result) => {
-      if (err) {
-        console.error('Error al insertar nodo: ' + err);
-      } else {
-        console.log('Nodo insertado correctamente. ID: ' + result.insertId);
-      }
-    });
-  });
-
-  // Inserta las aristas (conexiones)
-  data.conexiones.forEach(conexion => {
-    const { ubicacion1, ubicacion2, peso } = conexion;
-    const insertAristaQuery = `
-      INSERT INTO aristas (nodo_inicio, nodo_fin, peso)
-      SELECT n1.id, n2.id, ? FROM nodos n1, nodos n2
-      WHERE n1.nombre = ? AND n2.nombre = ?
-    `;
-
-    connection.query(
-      insertAristaQuery,
-      [peso, ubicacion1, ubicacion2],
-      (err, result) => {
-        if (err) {
-          console.error('Error al insertar arista: ' + err);
-        } else {
-          console.log('Arista insertada correctamente. ID: ' + result.insertId);
-        }
-      }
-    );
-  });
-
-  // Cierra la conexión
-  connection.end(err => {
-    if (err) {
-      console.error('Error al cerrar la conexión: ' + err);
-    } else {
-      console.log('Proceso completado. Conexión cerrada.');
-    }
-  });
-}
 function onFileChange(event) {
   var fileName = event.target.files[0].name;
   var reader = new FileReader();
   reader.onload = function (e) {
     var obj = JSON.parse(e.target.result);
     displayData(obj, fileName);
-    // Llama a la función para cargar los datos en la base de datos
-    uploadDataToDatabase(obj);
+
+    // Enviar los datos al servidor
+    sendDataToServer(obj);
   };
   reader.readAsText(event.target.files[0]);
 }
+
+function sendDataToServer(data) {
+  fetch('/api/upload', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(data),
+  })
+    .then(response => response.json())
+    .then(responseData => {
+      // Manejar la respuesta del servidor si es necesario
+      console.log('Respuesta del servidor:', responseData);
+    })
+    .catch(error => {
+      console.error('Error al enviar datos al servidor:', error);
+    });
+}
+
 document.getElementById('file').addEventListener('change', onFileChange);
 
 //Mostrar los mensajes en el sidebar
 function displayData(data, fileName) {
-  console.log("no");
-
   // Selecciona el elemento div
   var nameElement = document.getElementById('nombre');
   nameElement.style.color = 'white';
@@ -120,21 +91,6 @@ function displayData(data, fileName) {
     data = Object.values(data);
   }
 
-  // Selecciona el elemento en el que deseas mostrar los datos (por ejemplo, un div con el id 'dataContainer')
-  var dataContainer = document.getElementById('dataContainer');
-  dataContainer.innerHTML = ''; // Limpia el contenido anterior si lo hubiera
-
-  // Itera sobre cada objeto en los datos del archivo
-  data.forEach(function (item) {
-    var li = document.createElement('li');
-    li.textContent = 'Nombre: ' + item.nombre + ', posX: ' + item.posX + ', posY: ' + item.posY;
-    li.style.fontSize = '12px';
-    li.style.color = 'white';
-    dataContainer.appendChild(li);
-  });
-
-  // Agrega el elemento de la lista debajo del elemento div
-  // nameElement.parentNode.insertBefore(fileDataItem, nameElement.nextSibling);
 }
 
 

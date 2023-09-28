@@ -1,7 +1,6 @@
 {
   "dependencies": {
     "express": "^4.18.2",
-    "fs": "^0.0.1-security",
     "mysql": "^2.18.1"
   },
   "name": "jellyvery",
@@ -12,12 +11,12 @@
     "doc": "docs"
   },
   "scripts": {
-    "test": "npmnpm install fs"
+    "start": "node index.js"
   },
   "repository": {
     "type": "git",
-    "url": "npm install fs"
+    "url": "URL_DEL_REPOSITORIO_GIT_DE_TU_PROYECTO"
   },
-  "author": "git log",
+  "author": "TU_NOMBRE",
   "license": "ISC"
 }
